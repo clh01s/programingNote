@@ -1,3 +1,0 @@
-jenkins发布账号
-用户：location_engine_deployer
-密码：123456
