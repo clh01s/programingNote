@@ -1,0 +1,60 @@
+------------windwos环境
+--------------------生成project
+
+cmake .. -G "Unix Makefiles" // -G "Unix Makefiles"在Windows下可以指定cmake生成linux格式的cmakefile，使用gcc方式进行编译
+
+cmake .. // 在windwos下可以生成vs格式的project文件，通过vs进行编译
+
+cmake -G "Visual Studio 12 2013" -DIS_VS_BUILD=1 .. // -DIS_VS_BUILD可以设定预编译指令
+
+cmake -DCMAKE_BUILD_TYPE=Debug //相当于添加了-g编译参数，可以进行gdb调试
+------指定vs版本
+2013 版本默认32位，如需64位则需添加Win64参数
+cmake -G "Visual Studio 12 2013" ..
+
+2017 以下的32位：
+cmake -G "Visual Studio 15 2017" ..
+
+2017 以下的64位：
+cmake -G "Visual Studio 15 2017 Win64" ..
+cmake -G "Visual Studio 15 2017 Win64" -DCMAKE_CXX_FLAGS="/MP" ..  // -DCMAKE_CXX_FLAGS="/MP"表示打开多处理器编译
+cmake -G "Visual Studio 15 2017 Win64" -DCMAKE_SYSTEM_VERSION=10.0.18362.0 .. // -DCMAKE_SYSTEM_VERSION=10.0.18362.0表示指定的windows sdk 版本
+
+2019 的64位，默认64位：
+cmake -G "Visual Studio 16 2019"  ..
+
+2019 以下的32位：
+cmake -G "Visual Studio 16 2019 -A "Win32" ..
+	
+// virtual studio命令行编译
+devenv.com PoliceSceneEngine.sln /Build
+
+
+-------------------cmake编译命令
+cmake --build . --config Release
+
+
+// 添加调试信息
+cmake .. -DCMAKE_BUILD_TYPE=Debug 
+
+--------------------生成NMake Makefiles使用VS命令提示符编译
+// NMake Makefiles与生成project主要区别为 -G参数不同以及在project下不会使用CMAKE_BUILD_TYPE宏定义
+// 其余参数及功能保持一致
+cmake -G"NMake Makefiles" -DCMAKE_BUILD_TYPE=Release .. // 构建Release版本“..”为cmakelists路径
+cmake --build ./ // 编译 “./”为编译路径
+
+
+-------------------读取文本内容并使用正则表达式获取特定内容
+# 读取文件内容
+file(READ "example.txt" file_content)
+# 提取 DataCacheVersion
+string(REGEX MATCH "DataCacheVersion=([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)" data_cache_match "${version_info}")
+string(REGEX REPLACE "DataCacheVersion=([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)" "\\1" data_cache_version "${data_cache_match}")
+
+# 提取 NetWorkVersion
+string(REGEX MATCH "NetWorkVersion=([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)" network_match "${version_info}")
+string(REGEX REPLACE "NetWorkVersion=([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)" "\\1" network_version "${network_match}")
+
+# 输出提取的版本信息
+message(STATUS "Extracted DataCacheVersion: ${data_cache_version}")
+message(STATUS "Extracted NetWorkVersion: ${network_version}")

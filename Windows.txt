@@ -1,0 +1,3 @@
+windwos命令行缓冲区清空命令：cls
+// 可以导出静态库中接口名称
+dumpbin /headers *.lib

@@ -1,0 +1,40 @@
+
+在测试备份还原数据库时，遇到了 ERROR 2026 (HY000): SSL connection error: unknown error number
+
+linux:
+关闭 SSL 验证就可以解决该错误，在 Linux 服务器 /etc/my.cnf 文件中添加 skip_ssl 即可，记得重启 mysql 服务， systemctl restart mysqld
+
+
+windows
+
+在 Windows 下配置 MySQL Server 以跳过 SSL，可以按照以下步骤进行：
+
+1. 找到 MySQL 配置文件
+MySQL 的配置文件通常是 my.ini 或 my.cnf，可以在 MySQL 安装目录下找到，通常位于类似于以下路径：
+
+arduino
+复制代码
+C:\ProgramData\MySQL\MySQL Server X.Y\my.ini
+（X.Y 表示你的 MySQL 版本）
+
+2. 编辑配置文件
+使用文本编辑器（如记事本）打开 my.ini 文件，找到 [mysqld] 段。如果没有这个段，可以创建一个。
+
+在 [mysqld] 段中添加以下行：
+skip-ssl
+3. 保存并关闭文件
+保存对 my.ini 文件的更改并关闭文本编辑器。
+
+4. 重启 MySQL 服务
+你需要重启 MySQL 服务，以使配置生效。可以通过以下步骤进行重启：
+
+打开 Windows 服务管理器（可以通过运行 services.msc 来打开）。
+找到 MySQL 服务（通常以 "MySQL" 或 "MySQL Server X.Y" 命名）。
+右键点击该服务，选择 "重启"。
+5. 验证配置
+重启后，可以通过连接到 MySQL 并运行以下命令来验证 SSL 设置：
+
+sql
+复制代码
+SHOW VARIABLES LIKE '%ssl%';
+查看 have_ssl 变量是否显示为 DISABLED。

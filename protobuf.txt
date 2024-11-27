@@ -1,0 +1,11 @@
+// 从.proto文件生成c++代码
+protoc -I=$SRC_DIR --cpp_out=$DST_DIR $SRC_DIR/addressbook.proto
+
+// 从.proto文件生成java代码
+protoc -I=$SRC_DIR --java_out=$DST_DIR $SRC_DIR/addressbook.proto
+
+// 从.proto文件生成grpc以及protobuf c++代码
+protoc.exe --cpp_out=. --grpc_out=. --plugin=protoc-gen-grpc=grpc_cpp_plugin.exe -I=$SRC_DIR $SRC_DIR/test.proto
+
+// 从.proto文件生成grpc c++代码
+protoc.exe --grpc_out=. --plugin=protoc-gen-grpc=grpc_cpp_plugin.exe -I=$SRC_DIR $SRC_DIR/test.proto

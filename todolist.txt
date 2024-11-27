@@ -1,0 +1,14 @@
+定位引擎2.0
+1.python脚本需要写入LD_LIBRARY_PATH变量，配置动态库路径或者配置-Wl,-rpath,参数
+2.python脚本需要将可执行文件、配置文件、编译的动态库打包到一个文件夹下
+3.python脚本支持debug和Release方式编译
+4.python脚本install时需要将之前的install删除
+5.python脚本install的时候需要拷贝配置文件到install文件夹
+-----------
+引擎优化点
+1.减少全局变量使用
+2.配置文件读取统一为单例配置文件类控制
+3.是否可以使用epoll的方式进行数据收发
+4.重复代码集成至公共类进行统一使用管理
+5.读取外部文件时需要确定文件是否存在
+6.如果数据库无法连接则报错并退出（conn = driver->connect(this->url, this->username, this->password);在这行处理）

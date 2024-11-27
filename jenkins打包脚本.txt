@@ -1,0 +1,30 @@
+#!/bin/bash
+set -e  # 如果有任何命令失败，脚本将退出
+BuildDir=$(pwd)/build
+SourceDir=$(pwd)
+
+# 打印当前工作目录
+echo "当前工作目录：$(pwd)"
+
+# 判断文件夹是否存在
+if [ -d "$BuildDir" ]; then
+	rm -rf "$BuildDir"
+fi
+
+echo "创建目录：$BuildDir"
+mkdir -p "$BuildDir"
+
+# 确保Jenkins用户对构建目录有读写权限
+sudo chown -R jenkins:jenkins "$BuildDir"
+sudo chmod -R 755 "$BuildDir"
+
+# 运行cmake和make命令
+./scene-engine-depend/cmake-linux/bin/cmake -B "$BuildDir" -S "$SourceDir" -DCMAKE_BUILD_TYPE=Release
+# -j数量如果和cpu数量一致可能会导致cpu、内存资源不足编译或构建操作失败，所以为cpu核数-2
+#./scene-engine-depend/cmake-linux/bin/cmake --clean-first --build "$BuildDir" -- -j$(($(nproc) - 2))
+cd "$BuildDir"
+echo "current pwd:" $(pwd)
+make -j$(($(nproc) - 2))
+make install
+python3 install.py
+echo "构建完成"

@@ -1,0 +1,3 @@
+g++ dllmain.cpp -shared -fPIC -o libdllmaketest.so  // 动态库编译命令
+
+g++ usedllmaketest.cpp -ldllmaketest -L./ -Wl,-rpath,./ // 编译依赖动态库命令 -L./为手动指定动态库查找地址 -Wl,-rpath,./为运行时动态库查找地址

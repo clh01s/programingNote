@@ -1,0 +1,12 @@
+// record 参数表示记录数据 -F 99表示每秒99次 -p 123表示监控PID为123的程序 -- sleep 30表示监控30秒
+sudo perf record -F 99 -p 123 -g -- sleep 30
+
+//将监控生成的perf.data转换为out.perf
+sudo perf script > out.perf
+
+切换到FlameGraph-master
+//折叠堆栈
+./stackcollapse-perf.pl out.perf > out.folded
+
+//生成火焰图
+./flamegraph.pl out.folded > kernel.svg

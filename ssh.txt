@@ -1,0 +1,2 @@
+// 将自己的公钥拷贝到服务器实现无密码访问
+ssh-copy-id target_user@target_ip
