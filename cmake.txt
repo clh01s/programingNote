@@ -33,28 +33,16 @@ devenv.com PoliceSceneEngine.sln /Build
 -------------------cmake编译命令
 cmake --build . --config Release
 
+// 设定cmake编译成果文件的安装命令
+ -DCMAKE_INSTALL_PREFIX="path" 
 
 // 添加调试信息
 cmake .. -DCMAKE_BUILD_TYPE=Debug 
-
+// 向之前设定好的安装目录安装编译、设定好的RelWithDebInfo文件
+cmake --install . --config RelWithDebInfo
 --------------------生成NMake Makefiles使用VS命令提示符编译
 // NMake Makefiles与生成project主要区别为 -G参数不同以及在project下不会使用CMAKE_BUILD_TYPE宏定义
 // 其余参数及功能保持一致
 cmake -G"NMake Makefiles" -DCMAKE_BUILD_TYPE=Release .. // 构建Release版本“..”为cmakelists路径
 cmake --build ./ // 编译 “./”为编译路径
 
-
--------------------读取文本内容并使用正则表达式获取特定内容
-# 读取文件内容
-file(READ "example.txt" file_content)
-# 提取 DataCacheVersion
-string(REGEX MATCH "DataCacheVersion=([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)" data_cache_match "${version_info}")
-string(REGEX REPLACE "DataCacheVersion=([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)" "\\1" data_cache_version "${data_cache_match}")
-
-# 提取 NetWorkVersion
-string(REGEX MATCH "NetWorkVersion=([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)" network_match "${version_info}")
-string(REGEX REPLACE "NetWorkVersion=([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)" "\\1" network_version "${network_match}")
-
-# 输出提取的版本信息
-message(STATUS "Extracted DataCacheVersion: ${data_cache_version}")
-message(STATUS "Extracted NetWorkVersion: ${network_version}")

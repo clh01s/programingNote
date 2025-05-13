@@ -1,3 +1,12 @@
-git submodule update --init --recursive // 加载项目中连接的依赖git项目
+-----------子模块
 git submodule add modulePath moduleName // 向git项目中添加依赖的子项目
+git submodule update --init --recursive // 加载项目中连接的依赖git项目
+git submodule update --remote --checkout // 更新所有子模块到远程分支的最新提交（自动拉取代码并切换）
+-----------基础操作
 git push origin tagname // 推送tagname指定的tag到服务端
+git tag tagname hash // 将指定git的commit的哈希值为hash的commit设置为tag，tag名称为tagname
+git tag -d <tag_name> //用来删除本地的 tag。
+git push --delete origin <tag_name> //用来删除远程的 tag。
+如果只想删除远程 tag，可以使用 git push origin :refs/tags/<tag_name>
+git stash // 将当前修改暂存
+git stash apply // 将暂存的修改恢复

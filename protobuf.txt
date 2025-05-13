@@ -9,3 +9,4 @@ protoc.exe --cpp_out=. --grpc_out=. --plugin=protoc-gen-grpc=grpc_cpp_plugin.exe
 
 // 从.proto文件生成grpc c++代码
 protoc.exe --grpc_out=. --plugin=protoc-gen-grpc=grpc_cpp_plugin.exe -I=$SRC_DIR $SRC_DIR/test.proto
+
