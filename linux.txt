@@ -1,1 +1,3 @@
 sudo timedatectl set-timezone Asia/Shanghai // 更改时区到上海
+
+ip -br -c a // 查看本机IP地址并且简化、高亮显示

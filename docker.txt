@@ -1,0 +1,26 @@
+# 构建docker镜像 dockerName 为镜像名称 后面跟的是Dockerfile文件所在的路径
+sudo docker build -t dockerName . 
+
+# 运行docker镜像 dockerName 并挂载外部目录到docker容器的/external-libs和/app/config目录
+sudo docker run -it --rm   -v /host/path/to/libs:/external-libs   -v /host/path/to/config:/app/config   
+
+
+sudo docker run -it --rm datacache -v ~/workspace/location-engine-2.0/build/ :/app/config
+
+# 查看所有容器
+docker ps -a
+
+# docker删除镜像
+sudo docker rmi -f dockerName 
+
+# docker-compose 指定compose文件运行docker容器
+ sudo docker-compose -f locationEngineMysql-compose.yml up -d
+# docker-compose 指定compose文件关闭并删除docker容器
+ sudo docker-compose -f locationEngineMysql-compose.yml down
+
+
+
+# 手动创建新的容器并且进入
+sudo docker run -it --rm   --name datacache-debug2   --network locationEngine-network   -v /home/clh/workspace/docker/PinPointLocationEngine/external-config/engine_conf.xml:/app/engine_conf.xml   -v /home/clh/locationEngineLogs/datacache-logs:/app/logs   --entrypoint /bin/bash   datacache
+
+sudo docker run -it --rm   --name timeslot-debug2   --network locationEngine-network   -v /home/clh/workspace/docker/PinPointLocationEngine/external-config/engine_conf.xml:/app/engine_conf.xml   -v /home/clh/locationEngineLogs/timeslot-logs:/app/logs   --entrypoint /bin/bash   timeslot
