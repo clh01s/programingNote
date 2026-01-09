@@ -9,9 +9,13 @@ sudo docker run -it --rm datacache -v ~/workspace/location-engine-2.0/build/ :/a
 
 # 查看所有容器
 docker ps -a
+# 删除容器
+docker rm <容器ID或容器名>
+# 查看所有镜像
+docker images
 
 # docker删除镜像
-sudo docker rmi -f dockerName 
+sudo docker rmi -f imageid 
 
 # docker-compose 指定compose文件运行docker容器
  sudo docker-compose -f locationEngineMysql-compose.yml up -d

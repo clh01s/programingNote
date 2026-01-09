@@ -1,3 +1,23 @@
 sudo timedatectl set-timezone Asia/Shanghai // 更改时区到上海
 
 ip -br -c a // 查看本机IP地址并且简化、高亮显示
+
+
+strace，排查诡异问题的终极武器
+
+程序行为诡异，日志看不出来，不知道它在干什么？strace能看到进程的所有系统调用。
+
+strace -p <pid>
+挂上去，进程干的每一件事你都能看到：读了什么文件、写了什么数据、连了什么网络、等了什么锁。
+
+实际场景：有个服务启动很慢，日志就一行”starting…“然后卡住。strace一挂，发现卡在connect()，在等一个连不上的Redis。配置文件里写的Redis地址是错的。
+
+# 跟踪特定类型的系统调用
+strace -e open,read,write -p <pid>
+
+# 跟踪网络相关
+strace -e network -p <pid>
+
+# 统计每种系统调用的耗时
+strace -c -p <pid>
+strace -c特别有用，能统计进程把时间花在哪类系统调用上，是CPU计算还是IO等待，一目了然。
